@@ -44,9 +44,9 @@ def mmd_rbf_noaccelerate(source, target, kernel_mul=2.0, kernel_num=5, fix_sigma
     batch_size = int(source.size()[0])
     kernels = guassian_kernel(source, target,
                               kernel_mul=kernel_mul, kernel_num=kernel_num, fix_sigma=fix_sigma)
-    XX = kernels[:batch_size, :batch_size]
-    YY = kernels[batch_size:, batch_size:]
-    XY = kernels[:batch_size, batch_size:]
-    YX = kernels[batch_size:, :batch_size]
-    loss = tf.math.reduce_mean(XX + YY - XY -YX)
+    xx = kernels[:batch_size, :batch_size]
+    yy = kernels[batch_size:, batch_size:]
+    xy = kernels[:batch_size, batch_size:]
+    yx = kernels[batch_size:, :batch_size]
+    loss = tf.math.reduce_mean(xx + yy - xy - yx)
     return loss
